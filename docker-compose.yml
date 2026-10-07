@@ -1,0 +1,133 @@
+x-edge-node: &edge-node
+  image: smartedge-edge-node:latest
+  build:
+    context: .
+    dockerfile: apps/edge-node/Dockerfile
+  restart: unless-stopped
+  depends_on:
+    postgres:
+      condition: service_healthy
+    mqtt:
+      condition: service_started
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: smartedge-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: smartedge
+      POSTGRES_USER: smartedge
+      POSTGRES_PASSWORD: smartedge
+    ports:
+      - "5432:5432"
+    volumes:
+      - smartedge-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smartedge -d smartedge"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  mqtt:
+    image: eclipse-mosquitto:2
+    container_name: smartedge-mqtt
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./docker/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+  edge-1:
+    <<: *edge-node
+    container_name: smartedge-edge-1
+    environment:
+      NODE_ID: "1"
+      NODE_NAME: edge-1
+      PORT: "5001"
+      PEERS: 2=http://edge-2:5002,3=http://edge-3:5003
+      MQTT_URL: mqtt://mqtt:1883
+      DATABASE_URL: postgresql://smartedge:smartedge@postgres:5432/smartedge
+    ports:
+      - "5001:5001"
+
+  edge-2:
+    <<: *edge-node
+    container_name: smartedge-edge-2
+    environment:
+      NODE_ID: "2"
+      NODE_NAME: edge-2
+      PORT: "5002"
+      PEERS: 1=http://edge-1:5001,3=http://edge-3:5003
+      MQTT_URL: mqtt://mqtt:1883
+      DATABASE_URL: postgresql://smartedge:smartedge@postgres:5432/smartedge
+    ports:
+      - "5002:5002"
+
+  edge-3:
+    <<: *edge-node
+    container_name: smartedge-edge-3
+    environment:
+      NODE_ID: "3"
+      NODE_NAME: edge-3
+      PORT: "5003"
+      PEERS: 1=http://edge-1:5001,2=http://edge-2:5002
+      MQTT_URL: mqtt://mqtt:1883
+      DATABASE_URL: postgresql://smartedge:smartedge@postgres:5432/smartedge
+    ports:
+      - "5003:5003"
+
+  api:
+    image: smartedge-api:latest
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      edge-1:
+        condition: service_started
+      edge-2:
+        condition: service_started
+      edge-3:
+        condition: service_started
+    environment:
+      PORT: "4000"
+      DATABASE_URL: postgresql://smartedge:smartedge@postgres:5432/smartedge
+      EDGE_NODE_1_URL: http://edge-1:5001
+      EDGE_NODE_2_URL: http://edge-2:5002
+      EDGE_NODE_3_URL: http://edge-3:5003
+    ports:
+      - "4000:4000"
+
+  sensor-simulator:
+    image: smartedge-sensor-simulator:latest
+    build:
+      context: .
+      dockerfile: apps/sensor-simulator/Dockerfile
+    container_name: smartedge-sensor-simulator
+    restart: unless-stopped
+    depends_on:
+      mqtt:
+        condition: service_started
+    environment:
+      SENSOR_ID: "1"
+      SENSOR_NAME: sensor-1
+      MQTT_URL: mqtt://mqtt:1883
+      PUBLISH_INTERVAL_MS: "3000"
+
+  dashboard:
+    image: smartedge-dashboard:latest
+    build:
+      context: .
+      dockerfile: apps/dashboard/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "8080:80"
+
+volumes:
+  smartedge-postgres-data:
