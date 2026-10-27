@@ -23,6 +23,7 @@ COPY apps/api/package.json ./apps/api/package.json
 RUN npm ci --omit=dev --workspace @smartedge/api --include-workspace-root
 
 COPY --from=build /app/apps/api/dist ./apps/api/dist
+COPY apps/api/sql ./apps/api/sql
 
 WORKDIR /app/apps/api
 

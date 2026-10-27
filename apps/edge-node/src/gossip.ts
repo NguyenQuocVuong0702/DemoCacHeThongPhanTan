@@ -12,6 +12,10 @@ export type ClusterMemberState = {
 const GOSSIP_INTERVAL_MS = 3_000;
 const GOSSIP_TIMEOUT_MS = 1_000;
 const clusterKnowledge = new Map<string, ClusterMemberState>();
+// Heartbeat owns local reachability, not a peer's role/leader version. Relaying
+// a suspicion must not make that peer's last known election state newer.
+const observedPeerStatuses = new Map<string, "UP" | "DOWN">();
+const UNKNOWN_STATE_UPDATED_AT = new Date(0).toISOString();
 
 let gossipTimer: NodeJS.Timeout | undefined;
 
@@ -51,7 +55,12 @@ export function updateLocalState(): void {
     status: "UP",
     role,
     leaderId: currentLeaderId,
-    updatedAt: new Date().toISOString(),
+    // Only the owner versions its election state; keep changes within the same
+    // millisecond ordered without advancing the version on reads or relays.
+    updatedAt: new Date(Math.max(
+      Date.now(),
+      current ? Date.parse(current.updatedAt) + 1 : 0,
+    )).toISOString(),
   });
 }
 
@@ -59,6 +68,11 @@ export function updatePeerStatus(
   peerId: string,
   status: "UP" | "DOWN",
 ): void {
+  if (peerId === nodeId) {
+    return;
+  }
+
+  observedPeerStatuses.set(peerId, status);
   const current = clusterKnowledge.get(peerId);
 
   if (current?.status === status) {
@@ -70,7 +84,9 @@ export function updatePeerStatus(
     status,
     role: current?.role ?? "FOLLOWER",
     leaderId: current?.leaderId ?? null,
-    updatedAt: new Date().toISOString(),
+    // A placeholder has no owner report yet. Any real owner version must beat
+    // it, even if the heartbeat observation was made later than that report.
+    updatedAt: current?.updatedAt ?? UNKNOWN_STATE_UPDATED_AT,
   });
 }
 
@@ -86,7 +102,12 @@ export function mergeClusterKnowledge(records: unknown[]): void {
       !current ||
       Date.parse(record.updatedAt) > Date.parse(current.updatedAt)
     ) {
-      clusterKnowledge.set(record.nodeId, { ...record });
+      clusterKnowledge.set(record.nodeId, {
+        ...record,
+        // Direct heartbeat evidence wins over relayed UP/DOWN observations.
+        // The newer owner role/leader/version is still allowed to converge.
+        status: observedPeerStatuses.get(record.nodeId) ?? record.status,
+      });
     }
   }
 

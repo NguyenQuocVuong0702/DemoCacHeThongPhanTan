@@ -2,6 +2,8 @@
 
 SmartEdge Monitor là nền tảng mô phỏng hệ thống IoT/Edge phân tán, tập trung vào coordination, leader election, fault tolerance, gossip, event matching và location-aware edge assignment. Đây là prototype phục vụ học tập và demo trên máy local.
 
+**Chạy demo trên Windows:** mở Docker Desktop (Linux containers), sau đó chạy `.\scripts\demo-up.ps1`. Không cần cài Node.js/npm/PostgreSQL trên host. Xem [hướng dẫn demo đầy đủ](docs/DEMO_SETUP.md).
+
 ## Mục lục
 
 - [1. Tổng quan](#1-tổng-quan)
@@ -107,7 +109,7 @@ Migration seed metadata cho edge-1 → hanoi, edge-2 → danang, edge-3 → hcm.
 | edge-1 DOWN; edge-2 và edge-3 UP | edge-2, strategy FALLBACK (ID nhỏ nhất còn UP) |
 | edge-1 UP trở lại | edge-1, strategy SAME_ZONE sau recovery rebalance |
 
-Lần gán đầu tiên cần gọi POST /api/sensors/1/assign; monitor 3 giây chỉ theo dõi sensor đã có assigned_node_id. Trên database mới, sensor-1 được tạo khi telemetry đầu tiên đến, nên cần đặt zone cho bản ghi đó trước khi gọi assign (xem [Cách chạy](#12-cách-chạy)). Assignment là metadata trong PostgreSQL; nó chưa định tuyến MQTT trực tiếp tới edge node được gán.
+Lần gán đầu tiên dùng POST /api/sensors/1/assign; monitor 3 giây chỉ theo dõi sensor đã có assigned_node_id. Với database demo mới, bootstrap tự đợi telemetry tạo sensor-1, đặt zone hanoi và gọi API assign. Database đã tồn tại được giữ nguyên metadata khi khởi động. Assignment là metadata trong PostgreSQL; nó chưa định tuyến MQTT trực tiếp tới edge node được gán.
 
 ## 10. Công nghệ
 
@@ -124,36 +126,25 @@ apps/
   dashboard/           React UI, Vite, Nginx config
   edge-node/           heartbeat, election, gossip, MQTT, event matching
   sensor-simulator/    virtual sensor MQTT
-packages/
-  shared/              thư mục hiện trống
 docker/
   mosquitto.conf
 docker-compose.yml
+scripts/                khởi động, kiểm tra, dừng và reset demo Windows
+docs/DEMO_SETUP.md       hướng dẫn demo và xử lý sự cố
 package.json            npm workspaces: apps/* và packages/*
 ~~~
 
 ## 12. Cách chạy
 
-Yêu cầu Docker và Docker Compose. Chạy các lệnh sau ở root repo. Các service trong Compose dùng thông tin đăng nhập mẫu cho môi trường local.
+Yêu cầu Windows PowerShell 5.1, Docker Desktop đang chạy Linux containers và Docker Compose v2 trở lên. Không cần cài Node.js, npm hoặc PostgreSQL trên host. Tại root repo:
 
-**Lần đầu với PostgreSQL volume trống:** Compose chưa tự chạy SQL migration. Khởi động riêng PostgreSQL, chép SQL vào container rồi chạy các file đúng thứ tự:
-
-~~~sh
-docker compose up -d --wait postgres
-docker compose cp apps/api/sql postgres:/tmp/
-docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U smartedge -d smartedge -f /tmp/sql/001_initial_schema.sql
-docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U smartedge -d smartedge -f /tmp/sql/002_add_location_fields.sql
-docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U smartedge -d smartedge -f /tmp/sql/003_seed_edge_locations.sql
+~~~powershell
+.\scripts\demo-up.ps1
 ~~~
 
-Repo cũng có script npm run db:migrate --workspace @smartedge/api cho trường hợp chạy Node.js/npm trên host với DATABASE_URL trỏ tới PostgreSQL local. Image API production không chứa runner này, nên quy trình Docker ở trên chạy SQL bằng psql trong container PostgreSQL.
+Script tự build images, chạy migrations theo thứ tự, đợi dependencies và cluster ổn định, chuẩn bị sensor-1 trên database mới rồi chạy smoke checks. Migrations có lịch sử trong `schema_migrations`; chạy lại giữ dữ liệu. Các service dùng thông tin đăng nhập mẫu cho demo local.
 
-Khởi động toàn bộ hệ thống và kiểm tra:
-
-~~~sh
-docker compose up -d
-docker compose ps
-~~~
+Xem [docs/DEMO_SETUP.md](docs/DEMO_SETUP.md) để xử lý lỗi, dùng project riêng hoặc reset có xác nhận.
 
 | Thành phần | Địa chỉ trên máy host |
 | --- | --- |
@@ -164,23 +155,17 @@ docker compose ps
 
 Dashboard gọi API tại http://127.0.0.1:4000 từ browser trên máy host.
 
-**Chuẩn bị kịch bản placement trên database mới:** đợi sensor simulator publish và GET /api/sensors trả về sensor-1. Migration 003 chỉ update zone nếu sensor-1 đã tồn tại tại thời điểm chạy migration. Sau đó:
+Kiểm tra, dừng hoặc tạo lại demo sạch:
 
-~~~sh
-docker compose exec -T postgres psql -U smartedge -d smartedge -c "UPDATE sensors SET zone = 'hanoi' WHERE id = '1';"
-curl -X POST http://localhost:4000/api/sensors/1/assign
+~~~powershell
+.\scripts\demo-check.ps1
+.\scripts\demo-down.ps1
+# Chỉ khi muốn xóa dữ liệu; script yêu cầu nhập xác nhận theo tên project:
+.\scripts\demo-reset.ps1
+.\scripts\demo-up.ps1
 ~~~
 
-Trong PowerShell, dùng curl.exe thay cho curl ở lệnh POST. Có thể kiểm tra kết quả bằng GET http://localhost:4000/api/sensors hoặc section Edge Placement trên dashboard.
-
-Dừng service hoặc build lại image:
-
-~~~sh
-docker compose down
-docker compose up -d --build
-~~~
-
-docker compose down vẫn giữ PostgreSQL volume.
+`demo-down.ps1` giữ PostgreSQL volume. `demo-reset.ps1` chỉ xóa volume sau khi xác nhận rõ ràng. Có thể gọi script bằng đường dẫn tuyệt đối từ terminal ở thư mục bất kỳ.
 
 ## 13. Demo nhanh
 
@@ -253,7 +238,7 @@ Các route POST /election, /coordinator và /gossip cũng tồn tại để các
 
 - Prototype cho local demo, cố định ba edge node với numeric ID; chưa có cơ chế mở rộng cluster động.
 - Placement dựa trên zone và numeric ID fallback, chưa đo latency, load hoặc vị trí GPS. Bản ghi assignment không điều hướng luồng MQTT; chỉ leader xử lý telemetry.
-- Sensor chưa được tự gán khi assigned_node_id còn NULL. Monitor chỉ reassign/rebalance sensor đã gán.
+- Ngoài bootstrap sensor-1 của demo mới, sensor chưa được tự gán khi assigned_node_id còn NULL. Monitor chỉ reassign/rebalance sensor đã gán.
 - Dashboard dùng HTTP polling thay vì WebSocket. Gossip state chỉ ở memory; node metadata status/role trong bảng nodes chưa tự đồng bộ từ runtime cluster.
 - Mosquitto cho phép anonymous trong môi trường local. API và dashboard chưa có authentication/authorization hoặc cấu hình bảo mật production.
 - Bully Election phục vụ lựa chọn coordinator trong demo, không phải consensus protocol như Raft. Chưa có bảo đảm nhất quán mạnh khi mạng bị phân vùng.

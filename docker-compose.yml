@@ -7,13 +7,20 @@ x-edge-node: &edge-node
   depends_on:
     postgres:
       condition: service_healthy
+    migrate:
+      condition: service_completed_successfully
     mqtt:
-      condition: service_started
+      condition: service_healthy
+  healthcheck:
+    test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.PORT+'/health',{signal:AbortSignal.timeout(2000)}).then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+    interval: 5s
+    timeout: 3s
+    retries: 20
+    start_period: 5s
 
 services:
   postgres:
     image: postgres:17
-    container_name: smartedge-postgres
     restart: unless-stopped
     environment:
       POSTGRES_DB: smartedge
@@ -31,16 +38,32 @@ services:
 
   mqtt:
     image: eclipse-mosquitto:2
-    container_name: smartedge-mqtt
     restart: unless-stopped
     ports:
       - "1883:1883"
     volumes:
       - ./docker/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    healthcheck:
+      test: ["CMD", "mosquitto_pub", "-h", "127.0.0.1", "-t", "demo/health", "-m", "ok", "-q", "1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  migrate:
+    image: smartedge-api:latest
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: "no"
+    command: ["node", "dist/migrate.js"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://smartedge:smartedge@postgres:5432/smartedge
 
   edge-1:
     <<: *edge-node
-    container_name: smartedge-edge-1
     environment:
       NODE_ID: "1"
       NODE_NAME: edge-1
@@ -53,7 +76,6 @@ services:
 
   edge-2:
     <<: *edge-node
-    container_name: smartedge-edge-2
     environment:
       NODE_ID: "2"
       NODE_NAME: edge-2
@@ -66,7 +88,6 @@ services:
 
   edge-3:
     <<: *edge-node
-    container_name: smartedge-edge-3
     environment:
       NODE_ID: "3"
       NODE_NAME: edge-3
@@ -86,12 +107,14 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
       edge-1:
-        condition: service_started
+        condition: service_healthy
       edge-2:
-        condition: service_started
+        condition: service_healthy
       edge-3:
-        condition: service_started
+        condition: service_healthy
     environment:
       PORT: "4000"
       DATABASE_URL: postgresql://smartedge:smartedge@postgres:5432/smartedge
@@ -100,22 +123,47 @@ services:
       EDGE_NODE_3_URL: http://edge-3:5003
     ports:
       - "4000:4000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "Promise.all(['/health','/health/db','/api/sensors'].map(p=>fetch('http://127.0.0.1:4000'+p,{signal:AbortSignal.timeout(2000)}).then(r=>{if(!r.ok)throw Error(p)}))).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+      start_period: 5s
 
   sensor-simulator:
     image: smartedge-sensor-simulator:latest
     build:
       context: .
       dockerfile: apps/sensor-simulator/Dockerfile
-    container_name: smartedge-sensor-simulator
     restart: unless-stopped
     depends_on:
       mqtt:
-        condition: service_started
+        condition: service_healthy
+      edge-1:
+        condition: service_healthy
+      edge-2:
+        condition: service_healthy
+      edge-3:
+        condition: service_healthy
     environment:
       SENSOR_ID: "1"
       SENSOR_NAME: sensor-1
       MQTT_URL: mqtt://mqtt:1883
       PUBLISH_INTERVAL_MS: "3000"
+
+  demo-bootstrap:
+    image: smartedge-api:latest
+    restart: "no"
+    command: ["node", "dist/demo-bootstrap.js"]
+    depends_on:
+      api:
+        condition: service_healthy
+      sensor-simulator:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql://smartedge:smartedge@postgres:5432/smartedge
+      DEMO_API_URL: http://api:4000
+      DEMO_BOOTSTRAP_TIMEOUT_SECONDS: ${DEMO_BOOTSTRAP_TIMEOUT_SECONDS:-120}
 
   dashboard:
     image: smartedge-dashboard:latest
@@ -125,9 +173,14 @@ services:
     restart: unless-stopped
     depends_on:
       api:
-        condition: service_started
+        condition: service_healthy
     ports:
       - "8080:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
 
 volumes:
   smartedge-postgres-data:

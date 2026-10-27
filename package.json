@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit -p apps/api && tsc --noEmit -p apps/edge-node && tsc --noEmit -p apps/sensor-simulator && tsc -b apps/dashboard"
   },
   "keywords": [],
   "author": "",

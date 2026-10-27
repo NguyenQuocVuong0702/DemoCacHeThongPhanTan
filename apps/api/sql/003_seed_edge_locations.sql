@@ -5,9 +5,7 @@ VALUES
   ('3', 'edge-3', 'hcm')
 ON CONFLICT (id)
 DO UPDATE SET
-  name = EXCLUDED.name,
-  zone = EXCLUDED.zone;
+  zone = COALESCE(nodes.zone, EXCLUDED.zone);
 
-UPDATE sensors
-SET zone = 'hanoi'
-WHERE id = '1';
+-- Sensor metadata is initialized after real telemetry arrives, and only for a
+-- fresh demo database. Never overwrite existing sensor zones during migration.
