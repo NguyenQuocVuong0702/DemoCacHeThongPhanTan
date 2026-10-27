@@ -6,7 +6,6 @@ import type { ErrorRequestHandler } from "express";
 
 import { pool } from "./db.js";
 import { apiRouter } from "./routes/api.js";
-import { startAssignmentMonitor } from "./services/assignmentMonitor.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 4000;
@@ -55,5 +54,4 @@ app.get("/health/db", async (_request, response) => {
 
 app.listen(port, () => {
   console.log(`SmartEdge API is running on port ${port}`);
-  startAssignmentMonitor();
 });

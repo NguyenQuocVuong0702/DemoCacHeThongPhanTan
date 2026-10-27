@@ -1,0 +1,11 @@
+PASS Dashboard displays all 6 real sensors
+PASS Dashboard selects sensor-1 and renders its real readings chart
+PASS Dashboard selects sensor-2 and renders its real readings chart
+PASS Dashboard selects sensor-3 and renders its real readings chart
+PASS Dashboard selects sensor-4 and renders its real readings chart
+PASS Dashboard selects sensor-5 and renders its real readings chart
+PASS Dashboard selects sensor-6 and renders its real readings chart
+Dashboard created rule: {"id":"3","name":"Phase A Dashboard ed97e8c7","metric":"temperature","operator":">","threshold":0,"severity":"INFO","enabled":true,"createdAt":"2026-10-27T09:48:15.199Z"}
+PASS rule created through Dashboard generates alerts on all 6 sensors / 3 nodes: [{"sensor_id":"1","processed_by_node_id":"1","alerts":1},{"sensor_id":"2","processed_by_node_id":"1","alerts":1},{"sensor_id":"3","processed_by_node_id":"2","alerts":1},{"sensor_id":"4","processed_by_node_id":"2","alerts":1},{"sensor_id":"5","processed_by_node_id":"3","alerts":1},{"sensor_id":"6","processed_by_node_id":"3","alerts":1}]
+PASS Dashboard disables the test rule; rule and evidence alerts retained
+PASS no uncaught browser errors; screenshot saved to docs/PHASE_A_DASHBOARD.png

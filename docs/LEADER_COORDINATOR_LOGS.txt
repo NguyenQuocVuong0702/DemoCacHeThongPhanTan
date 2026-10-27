@@ -1,0 +1,46 @@
+edge-2-1  | [Coordination][ACQUIRE] node=2 instance=f662c771-2023-4500-a4f7-f3978cfae72d epoch=11
+edge-2-1  | [Assignment][REQUEST] coordinator=2 epoch=11 sensor=lc-187bacfe-f6a8-4b7e-a547-04c0ce7758bd ok=true
+edge-2-1  | [Coordination][RELEASE] node=2 epoch=11
+edge-2-1  | [Coordination][ACQUIRE] node=2 instance=f662c771-2023-4500-a4f7-f3978cfae72d epoch=14
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=14 sensor=5 from=3 to=1 projected_load=3
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=14 sensor=6 from=3 to=2 projected_load=3
+edge-3-1  | [Coordination][ACQUIRE] node=3 instance=e1082c23-f935-4e1a-a47c-e35af03adcab epoch=29
+edge-2-1  | [Coordination][RELEASE] node=2 epoch=14
+api-1     | [AssignmentProxy] sensor=lc-187bacfe-f6a8-4b7e-a547-04c0ce7758bd leader=3 epoch=9 HTTP=200
+api-1     | [AssignmentProxy] sensor=lc-187bacfe-f6a8-4b7e-a547-04c0ce7758bd-dual leader=3 epoch=9 HTTP=200
+api-1     | [AssignmentProxy] sensor=lc-187bacfe-f6a8-4b7e-a547-04c0ce7758bd leader=3 epoch=9 HTTP=409
+api-1     | [AssignmentProxy] sensor=lc-187bacfe-f6a8-4b7e-a547-04c0ce7758bd leader=2 epoch=11 HTTP=200
+api-1     | [AssignmentProxy] sensor=5 leader=3 epoch=26 HTTP=200
+edge-3-1  | [Coordination][ACQUIRE] node=3 instance=ca901f5a-eaf1-4146-9d3e-3d9c64de6896 epoch=32
+edge-3-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=3 epoch=32 sensor=5 from=1 to=3 projected_load=1
+edge-3-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=3 epoch=32 sensor=6 from=2 to=3 projected_load=2
+edge-1-1  | [Coordination][ACQUIRE] node=1 instance=63c349ff-41a8-46f1-ba17-167e1045b40a epoch=21
+edge-1-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=1 epoch=21 sensor=3 from=2 to=1 projected_load=3
+edge-1-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=1 epoch=21 sensor=4 from=2 to=1 projected_load=4
+edge-1-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=1 epoch=21 sensor=5 from=3 to=1 projected_load=5
+edge-1-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=1 epoch=21 sensor=6 from=3 to=1 projected_load=6
+edge-2-1  | [Coordination][ACQUIRE] node=2 instance=91856b97-8a79-4db0-acde-dc9f14ab26d4 epoch=24
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=24 sensor=1 from=1 to=2 projected_load=3
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=24 sensor=2 from=1 to=2 projected_load=4
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=24 sensor=5 from=3 to=2 projected_load=5
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=24 sensor=6 from=3 to=2 projected_load=6
+edge-1-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=1 epoch=21 sensor=3 from=1 to=2 projected_load=1
+edge-1-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=1 epoch=21 sensor=4 from=1 to=2 projected_load=2
+edge-1-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=1 epoch=21 sensor=5 from=1 to=3 projected_load=1
+edge-1-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=1 epoch=21 sensor=6 from=1 to=3 projected_load=2
+edge-1-1  | [Coordination][RELEASE] node=1 epoch=21
+edge-2-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=2 epoch=24 sensor=1 from=2 to=1 projected_load=1
+edge-2-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=2 epoch=24 sensor=2 from=2 to=1 projected_load=2
+edge-2-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=2 epoch=24 sensor=5 from=2 to=3 projected_load=1
+edge-2-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=2 epoch=24 sensor=6 from=2 to=3 projected_load=2
+edge-2-1  | [Coordination][RELEASE] node=2 epoch=24
+edge-2-1  | [Coordination][ACQUIRE] node=2 instance=91856b97-8a79-4db0-acde-dc9f14ab26d4 epoch=27
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=27 sensor=5 from=3 to=1 projected_load=3
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=27 sensor=6 from=3 to=2 projected_load=3
+edge-2-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=2 epoch=27 sensor=5 from=1 to=3 projected_load=1
+edge-2-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] coordinator=2 epoch=27 sensor=6 from=2 to=3 projected_load=2
+edge-2-1  | [Coordination][RELEASE] node=2 epoch=27
+edge-2-1  | [Coordination][ACQUIRE] node=2 instance=91856b97-8a79-4db0-acde-dc9f14ab26d4 epoch=30
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=30 sensor=5 from=3 to=1 projected_load=3
+edge-2-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] coordinator=2 epoch=30 sensor=6 from=3 to=2 projected_load=3
+edge-2-1  | [Coordination][RELEASE] node=2 epoch=30

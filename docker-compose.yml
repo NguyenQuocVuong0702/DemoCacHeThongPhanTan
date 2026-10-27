@@ -148,6 +148,7 @@ services:
     environment:
       SENSOR_ID: "1"
       SENSOR_NAME: sensor-1
+      SENSORS_FILE: /app/config/demo-sensors.json
       MQTT_URL: mqtt://mqtt:1883
       PUBLISH_INTERVAL_MS: "3000"
 
@@ -163,6 +164,9 @@ services:
     environment:
       DATABASE_URL: postgresql://smartedge:smartedge@postgres:5432/smartedge
       DEMO_API_URL: http://api:4000
+      EDGE_NODE_1_URL: http://edge-1:5001
+      EDGE_NODE_2_URL: http://edge-2:5002
+      EDGE_NODE_3_URL: http://edge-3:5003
       DEMO_BOOTSTRAP_TIMEOUT_SECONDS: ${DEMO_BOOTSTRAP_TIMEOUT_SECONDS:-120}
 
   dashboard:

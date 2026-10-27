@@ -1,0 +1,3 @@
+BEFORE epoch=32 audit={"count" : 42, "hash" : "c8992c9cd3da57cdfeb9a791b393a21d"}
+PASS restart epoch=33 audit={"count" : 42, "hash" : "c8992c9cd3da57cdfeb9a791b393a21d"}
+PASS repeated startup audit={"count" : 42, "hash" : "c8992c9cd3da57cdfeb9a791b393a21d"}

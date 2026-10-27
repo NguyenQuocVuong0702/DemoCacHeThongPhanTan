@@ -1,0 +1,20 @@
+Docker Compose version v5.4.0
+29.7.2
+[PASS] API /health
+[PASS] API /health/db
+[PASS] edge-1 /health
+[PASS] edge-2 /health
+[PASS] edge-3 /health
+[PASS] Stable cluster: 3 UP, one leader edge-3, consistent leaderId
+       sensor-1: zone=hanoi, edge=1, strategy=SAME_ZONE
+       sensor-2: zone=hanoi, edge=1, strategy=SAME_ZONE
+       sensor-3: zone=danang, edge=2, strategy=SAME_ZONE
+       sensor-4: zone=danang, edge=2, strategy=SAME_ZONE
+       sensor-5: zone=hcm, edge=3, strategy=SAME_ZONE
+       sensor-6: zone=hcm, edge=3, strategy=SAME_ZONE
+[PASS] Six demo sensors have real readings, zones and valid assignments
+[PASS] All six telemetry streams continue to grow
+[PASS] Current assigned nodes actually process the six sensors
+[PASS] Receipts, readings and alerts have consistent unique provenance
+[PASS] Dashboard HTTP
+Checks: 11 PASS, 0 FAIL

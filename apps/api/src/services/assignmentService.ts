@@ -1,113 +1,27 @@
+import type { AssignSensorResult } from "@smartedge/coordination";
 import { pool } from "../db.js";
-import { getClusterStatus } from "./clusterService.js";
+import { clusterNodes } from "./clusterService.js";
+export type { AssignSensorResult, SensorAssignment } from "@smartedge/coordination";
 
-type SensorRow = {
-  id: string;
-  name: string;
-  zone: string | null;
-  assigned_node_id: string | null;
-};
-
-type NodeRow = {
-  id: string;
-  name: string;
-  zone: string | null;
-};
-
-export type SensorAssignment = {
-  sensorId: string;
-  sensorZone: string;
-  assignedNodeId: string;
-  assignedNodeName: string;
-  assignedNodeZone: string | null;
-  strategy: "SAME_ZONE" | "FALLBACK";
-};
-
-export type AssignSensorResult =
-  | {
-      ok: true;
-      assignment: SensorAssignment;
-    }
-  | {
-      ok: false;
-      reason:
-        | "SENSOR_NOT_FOUND"
-        | "SENSOR_HAS_NO_ZONE"
-        | "NO_AVAILABLE_EDGE_NODE";
-      message: string;
-    };
-
-export async function assignSensor(
-  sensorId: string,
-): Promise<AssignSensorResult> {
-  const sensorResult = await pool.query<SensorRow>(
-    `SELECT id, name, zone, assigned_node_id
-     FROM sensors
-     WHERE id = $1`,
-    [sensorId],
+// API/bootstrap only forward requests. No placement or assignment SQL here.
+export async function assignSensor(sensorId: string, options: { onlyIfUnassigned?: boolean } = {}): Promise<AssignSensorResult> {
+  const unavailable: AssignSensorResult = { ok: false, reason: "NO_ASSIGNMENT_LEADER", message: "No valid assignment leader; retry after election/lease recovery" };
+  const lease = await pool.query<{ holder_node_id: string; epoch: string }>(
+    `SELECT holder_node_id,epoch::text FROM assignment_authority
+     WHERE singleton=true AND holder_node_id IS NOT NULL AND lease_until>clock_timestamp()`,
   );
-  const sensor = sensorResult.rows[0];
-
-  if (!sensor) {
-    return {
-      ok: false,
-      reason: "SENSOR_NOT_FOUND",
-      message: "Sensor not found",
-    };
-  }
-
-  if (!sensor.zone) {
-    return {
-      ok: false,
-      reason: "SENSOR_HAS_NO_ZONE",
-      message: "Sensor has no zone",
-    };
-  }
-
-  const [nodesResult, clusterStatus] = await Promise.all([
-    pool.query<NodeRow>("SELECT id, name, zone FROM nodes"),
-    getClusterStatus(),
-  ]);
-  const upNodeIds = new Set(
-    clusterStatus
-      .filter((node) => node.status === "UP")
-      .map((node) => node.id),
-  );
-  const availableNodes = nodesResult.rows
-    .filter((node) => upNodeIds.has(node.id))
-    .sort((left, right) =>
-      left.id.localeCompare(right.id, undefined, { numeric: true }),
-    );
-
-  const sameZoneNode = availableNodes.find(
-    (node) => node.zone === sensor.zone,
-  );
-  const selectedNode = sameZoneNode ?? availableNodes[0];
-
-  if (!selectedNode) {
-    return {
-      ok: false,
-      reason: "NO_AVAILABLE_EDGE_NODE",
-      message: "No available edge node",
-    };
-  }
-
-  await pool.query(
-    `UPDATE sensors
-     SET assigned_node_id = $1
-     WHERE id = $2`,
-    [selectedNode.id, sensor.id],
-  );
-
-  return {
-    ok: true,
-    assignment: {
-      sensorId: sensor.id,
-      sensorZone: sensor.zone,
-      assignedNodeId: selectedNode.id,
-      assignedNodeName: selectedNode.name,
-      assignedNodeZone: selectedNode.zone,
-      strategy: sameZoneNode ? "SAME_ZONE" : "FALLBACK",
-    },
-  };
+  const owner = lease.rows[0];
+  const leader = clusterNodes.find((node) => node.id === owner?.holder_node_id);
+  if (!owner || !leader) return unavailable;
+  try {
+    const response = await fetch(`${leader.url.replace(/\/+$/, "")}/assignments/${encodeURIComponent(sensorId)}`, {
+      method: "POST", headers: { "content-type": "application/json", "x-assignment-epoch": owner.epoch },
+      body: JSON.stringify({ onlyIfUnassigned: options.onlyIfUnassigned === true }),
+      signal: AbortSignal.timeout(8000),
+    });
+    const result = await response.json() as AssignSensorResult;
+    if (!result || typeof result.ok !== "boolean") return unavailable;
+    console.log(`[AssignmentProxy] sensor=${sensorId} leader=${leader.id} epoch=${owner.epoch} HTTP=${response.status}`);
+    return result;
+  } catch { return unavailable; }
 }

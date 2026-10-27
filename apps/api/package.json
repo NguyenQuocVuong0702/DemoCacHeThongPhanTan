@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "predev": "npm run build --workspace @smartedge/coordination",
+    "build": "npm run build --workspace @smartedge/coordination && tsc",
     "start": "node dist/index.js",
-    "db:migrate": "tsx src/migrate.ts"
+    "db:migrate": "tsx src/migrate.ts",
+    "pretest": "npm run build --workspace @smartedge/coordination",
+    "test": "tsx --test test/*.test.ts"
   },
   "dependencies": {
+    "@smartedge/coordination": "1.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",

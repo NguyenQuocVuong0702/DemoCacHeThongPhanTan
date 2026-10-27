@@ -1,0 +1,37 @@
+
+> @smartedge/edge-node@1.0.0 pretest
+> npm run build --workspace @smartedge/coordination
+
+
+> @smartedge/coordination@1.0.0 build
+> tsc -p tsconfig.json
+
+
+> @smartedge/edge-node@1.0.0 test
+> tsx --test test/*.test.ts
+
+✔ a later heartbeat observation cannot mask an older owner report (1.0557ms)
+✔ new owner election state merges while a direct heartbeat still says DOWN (0.1695ms)
+✔ relayed suspicion cannot override direct heartbeat UP (0.1019ms)
+✔ stale, equal-version and malformed gossip cannot replace newer owner state (0.1051ms)
+✔ only local election state can replace self; reading does not manufacture versions (0.1397ms)
+✔ owner state changes within one millisecond receive distinct versions (0.1225ms)
+▶ PostgreSQL processing, deduplication, rollback and assignment handoff
+  ✔ unassigned, unknown and non-owner nodes cannot persist (29.574ms)
+  ✔ 20 concurrent deliveries commit one receipt, two readings and one alert per rule (86.3567ms)
+  ✔ assignment committed first fences the old owner waiting on the sensor lock (26.2371ms)
+  ✔ processing holds assignment until commit; replay after handoff cannot duplicate alerts (68.9272ms)
+  ✔ alert failure rolls back receipt and readings; retry can commit the whole sample (5028.0792ms)
+✔ PostgreSQL processing, deduplication, rollback and assignment handoff (5361.0212ms)
+✔ original sensor-1 payloads get stable IDs, including equivalent timestamps (1.8563ms)
+✔ publisher message ID is retained; payload fingerprints detect conflicting reuse (0.1488ms)
+✔ invalid payloads and topic mismatches are rejected before persistence (0.4117ms)
+✔ event matching operators retain their original behavior (0.1251ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5581.1318

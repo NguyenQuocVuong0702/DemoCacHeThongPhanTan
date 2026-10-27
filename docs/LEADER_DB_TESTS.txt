@@ -1,0 +1,53 @@
+
+> @smartedge/api@1.0.0 pretest
+> npm run build --workspace @smartedge/coordination
+
+
+> @smartedge/coordination@1.0.0 build
+> tsc -p tsconfig.json
+
+
+> @smartedge/api@1.0.0 test
+> tsx --test test/*.test.ts
+
+✔ normal cluster does not move any healthy same-zone sensor (7.9083ms)
+✔ same-zone priority beats a less-loaded remote node; ties use numeric ID (0.2635ms)
+✔ fallback chooses least assigned node, then smallest numeric ID (0.1483ms)
+✔ edge-3 down splits sensors 5/6 using updated projected loads (0.3476ms)
+✔ recovery returns displaced sensors home once, without oscillation (0.3783ms)
+✔ one UP node receives all failed assignments; DOWN metadata is never a candidate (0.2707ms)
+✔ no UP nodes preserves the last assignment and reports no available processor (0.1738ms)
+✔ custom healthy fallback, same-zone owner, and user-cleared assignments stay intact (0.1205ms)
+✔ sensor ID order is numeric and every placement affects the next choice (0.2218ms)
+▶ PostgreSQL least-loaded assignments and Phase A handoff safety
+  ✔ batch failover is balanced, recovery returns home, stable rounds do no UPDATE (58.509ms)
+  ✔ no UP nodes reports unavailable without deleting recovery metadata; one UP recovers all (59.4876ms)
+  ✔ concurrent explicit assignment calls share current database load (125.9017ms)
+  ✔ same-zone selection uses least load instead of only the smallest ID (38.966ms)
+  ✔ monitor rechecks locked rows and preserves a concurrent valid custom placement (68.1824ms)
+  ✔ actual monitor transaction waits for processing COMMIT; replay after handoff stays idempotent (128.6895ms)
+✔ PostgreSQL least-loaded assignments and Phase A handoff safety (579.1501ms)
+▶ PostgreSQL authority: competing leaders, fencing, expiration, in-flight work and disconnect
+  ✔ two simultaneous LEADER claims grant exactly one process, including duplicate node IDs (49.3709ms)
+  ✔ missing/forged process or epoch cannot update; committed audit carries the true authority (25.5932ms)
+  ✔ an expired lease cannot renew the old epoch; deferred COMMIT check rolls back both sensor and audit (521.3581ms)
+  ✔ takeover while old leader waits on a sensor fences the queued old transaction (120.9226ms)
+  ✔ losing local leadership after UPDATE rolls back the entire in-flight decision (40.5483ms)
+  ✔ DB connection loss aborts a queued assignment; a later epoch safely proceeds (60.0845ms)
+✔ PostgreSQL authority: competing leaders, fencing, expiration, in-flight work and disconnect (919.9509ms)
+▶ health probe validates identity and handles HTTP/body failures with a deadline
+  ✔ live node, correct identity (35.6866ms)
+  ✔ wrong node identity is never UP (30.1112ms)
+  ✔ HTTP failure (30.9198ms)
+  ✔ invalid JSON (26.5304ms)
+  ✔ hanging response is aborted (139.5356ms)
+  ✔ node recovers after failed probes (27.6773ms)
+✔ health probe validates identity and handles HTTP/body failures with a deadline (296.9759ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1258.0001

@@ -8,6 +8,8 @@ const migrationFiles = [
   "001_initial_schema.sql",
   "002_add_location_fields.sql",
   "003_seed_edge_locations.sql",
+  "004_distributed_telemetry.sql",
+  "005_assignment_authority.sql",
 ];
 
 try {

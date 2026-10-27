@@ -1,0 +1,40 @@
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=5 from=3 to=1 projected_load=3
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=6 from=3 to=2 projected_load=3
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=5 from=1 to=3 projected_load=1
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=6 from=2 to=3 projected_load=2
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=1 from=1 to=2 projected_load=3
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=2 from=1 to=3 projected_load=3
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=1 from=2 to=1 projected_load=1
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=2 from=3 to=1 projected_load=2
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=3 from=2 to=1 projected_load=3
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=4 from=2 to=3 projected_load=3
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=3 from=1 to=2 projected_load=1
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=4 from=3 to=2 projected_load=2
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=3 from=2 to=1 projected_load=3
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=4 from=2 to=1 projected_load=4
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=5 from=3 to=1 projected_load=5
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=6 from=3 to=1 projected_load=6
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=3 from=1 to=2 projected_load=1
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=4 from=1 to=2 projected_load=2
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=5 from=1 to=3 projected_load=1
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=6 from=1 to=3 projected_load=2
+api-1  | [Assignment][NO_AVAILABLE_EDGE_NODE] sensor=1 processor=NONE last_assignment=1; retaining metadata for recovery
+api-1  | [Assignment][NO_AVAILABLE_EDGE_NODE] sensor=2 processor=NONE last_assignment=1; retaining metadata for recovery
+api-1  | [Assignment][NO_AVAILABLE_EDGE_NODE] sensor=3 processor=NONE last_assignment=2; retaining metadata for recovery
+api-1  | [Assignment][NO_AVAILABLE_EDGE_NODE] sensor=4 processor=NONE last_assignment=2; retaining metadata for recovery
+api-1  | [Assignment][NO_AVAILABLE_EDGE_NODE] sensor=5 processor=NONE last_assignment=3; retaining metadata for recovery
+api-1  | [Assignment][NO_AVAILABLE_EDGE_NODE] sensor=6 processor=NONE last_assignment=3; retaining metadata for recovery
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=1 from=1 to=2 projected_load=3
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=2 from=1 to=2 projected_load=4
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=5 from=3 to=2 projected_load=5
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=6 from=3 to=2 projected_load=6
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=1 from=2 to=1 projected_load=1
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=2 from=2 to=1 projected_load=2
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=5 from=2 to=3 projected_load=1
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=6 from=2 to=3 projected_load=2
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=5 from=3 to=1 projected_load=3
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=6 from=3 to=2 projected_load=3
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=5 from=1 to=3 projected_load=1
+api-1  | [Assignment][RECOVERY_REBALANCE][SAME_ZONE] sensor=6 from=2 to=3 projected_load=2
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=5 from=3 to=1 projected_load=3
+api-1  | [Assignment][FAILOVER][LEAST_LOADED_FALLBACK] sensor=6 from=3 to=2 projected_load=3

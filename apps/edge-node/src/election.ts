@@ -23,6 +23,9 @@ const electionState: ElectionState = {
 
 let electionRound = 0;
 
+// Invalidate assignment tasks begun before a later election/coordinator event.
+export function getElectionGeneration(): number { return electionRound; }
+
 async function sendElection(url: string): Promise<boolean> {
   try {
     const baseUrl = url.replace(/\/+$/, "");

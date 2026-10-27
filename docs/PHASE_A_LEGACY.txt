@@ -1,0 +1,20 @@
+migrate-1         | [Migration] Apply 001_initial_schema.sql
+migrate-1         | [Migration] Apply 002_add_location_fields.sql
+migrate-1         | [Migration] Apply 003_seed_edge_locations.sql
+migrate-1         | [Migration] Apply 004_distributed_telemetry.sql
+migrate-1         | Database migration completed successfully
+demo-bootstrap-1  | [Demo] sensor-1: zone=danang edge=2 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-2: zone=hanoi edge=1 strategy=FALLBACK
+demo-bootstrap-1  | [Demo] sensor-3: zone=danang edge=2 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-4: zone=danang edge=2 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-5: zone=hcm edge=3 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-6: zone=hcm edge=3 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] Bootstrap completed: 6 configured sensors have real telemetry.
+2|1|legacy-rule|custom-sensor-1:danang:2|custom-edge-1:custom-zone|6|4
+PASS legacy upgrade: old data and custom metadata preserved; six sensors process real telemetry
+1|2|6
+2|1|1
+3|2|1
+4|2|1
+5|3|1
+6|3|1

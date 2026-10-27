@@ -1,0 +1,8 @@
+[
+  { "id": "1", "name": "sensor-1", "zone": "hanoi" },
+  { "id": "2", "name": "sensor-2", "zone": "hanoi" },
+  { "id": "3", "name": "sensor-3", "zone": "danang" },
+  { "id": "4", "name": "sensor-4", "zone": "danang" },
+  { "id": "5", "name": "sensor-5", "zone": "hcm" },
+  { "id": "6", "name": "sensor-6", "zone": "hcm" }
+]

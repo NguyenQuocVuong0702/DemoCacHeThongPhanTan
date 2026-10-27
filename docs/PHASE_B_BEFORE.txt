@@ -1,0 +1,3 @@
+BASELINE cluster: {"leaderId":"2","upNodes":2,"downNodes":1}
+[{"id":"5","assignedNodeId":"1","assignmentStrategy":"FALLBACK"},{"id":"6","assignedNodeId":"1","assignmentStrategy":"FALLBACK"}]
+BASELINE restored: [{"id":"1","assignedNodeId":"1"},{"id":"2","assignedNodeId":"1"},{"id":"3","assignedNodeId":"2"},{"id":"4","assignedNodeId":"2"},{"id":"5","assignedNodeId":"3"},{"id":"6","assignedNodeId":"3"}]

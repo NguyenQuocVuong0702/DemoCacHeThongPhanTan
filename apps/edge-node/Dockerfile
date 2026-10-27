@@ -4,10 +4,12 @@ WORKDIR /app
 
 COPY package.json package-lock.json tsconfig.base.json ./
 COPY apps/edge-node/package.json ./apps/edge-node/package.json
+COPY packages/coordination/package.json ./packages/coordination/package.json
 
 RUN npm ci --workspace @smartedge/edge-node --include-workspace-root
 
 COPY apps/edge-node ./apps/edge-node
+COPY packages/coordination ./packages/coordination
 
 RUN npm run build --workspace @smartedge/edge-node
 
@@ -19,10 +21,12 @@ ENV NODE_ENV=production
 
 COPY package.json package-lock.json ./
 COPY apps/edge-node/package.json ./apps/edge-node/package.json
+COPY packages/coordination/package.json ./packages/coordination/package.json
 
 RUN npm ci --omit=dev --workspace @smartedge/edge-node --include-workspace-root
 
 COPY --from=build /app/apps/edge-node/dist ./apps/edge-node/dist
+COPY --from=build /app/packages/coordination/dist ./packages/coordination/dist
 
 WORKDIR /app/apps/edge-node
 

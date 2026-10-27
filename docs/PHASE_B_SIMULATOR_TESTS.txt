@@ -1,0 +1,14 @@
+
+> @smartedge/sensor-simulator@1.0.0 test
+> tsx --test test/*.test.ts
+
+✔ demo catalog has six sensors split evenly over the three zones (3.1084ms)
+✔ legacy SENSOR_ID/SENSOR_NAME still select a single sensor (0.484ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 227.7221

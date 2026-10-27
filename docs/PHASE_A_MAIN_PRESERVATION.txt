@@ -1,0 +1,8 @@
+MAIN BEFORE: {"maxRead" : 13631, "maxAlert" : 1874, "readCount" : 13560, "alertCount" : 1844, "readHash" : "e4525957326460bf585a0b248dcd5b7b", "alertHash" : "75d36c4e565c589280463f0ee3619fda", "ruleHash" : "a19b7dddd009c1f2e8981d995add6a1c", "nodeHash" : "90ea1d5051715920480abe3134d485b2", "sensorHash" : "e6594429d89308653e45f5e9c23112a2", "sensor" : {"id":"1","name":"sensor-1","assigned_node_id":"1","created_at":"2026-10-01T08:30:53.142617+00:00","zone":"hanoi"}}
+PASS MAIN PRESERVATION: {"readCount" : 13560, "alertCount" : 1844, "readHash" : "e4525957326460bf585a0b248dcd5b7b", "alertHash" : "75d36c4e565c589280463f0ee3619fda", "ruleHash" : "a19b7dddd009c1f2e8981d995add6a1c", "nodeHash" : "90ea1d5051715920480abe3134d485b2", "sensorHash" : "e6594429d89308653e45f5e9c23112a2"}
+1|1|8
+2|1|5
+3|2|5
+4|2|5
+5|3|5
+6|3|5

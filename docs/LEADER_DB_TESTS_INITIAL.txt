@@ -1,0 +1,61 @@
+
+> @smartedge/api@1.0.0 pretest
+> npm run build --workspace @smartedge/coordination
+
+
+> @smartedge/coordination@1.0.0 build
+> tsc -p tsconfig.json
+
+
+> @smartedge/api@1.0.0 test
+> tsx --test test/*.test.ts
+
+✔ normal cluster does not move any healthy same-zone sensor (7.8672ms)
+✔ same-zone priority beats a less-loaded remote node; ties use numeric ID (0.2363ms)
+✔ fallback chooses least assigned node, then smallest numeric ID (0.1451ms)
+✔ edge-3 down splits sensors 5/6 using updated projected loads (0.2891ms)
+✔ recovery returns displaced sensors home once, without oscillation (0.3328ms)
+✔ one UP node receives all failed assignments; DOWN metadata is never a candidate (0.3174ms)
+✔ no UP nodes preserves the last assignment and reports no available processor (0.272ms)
+✔ custom healthy fallback, same-zone owner, and user-cleared assignments stay intact (0.1829ms)
+✔ sensor ID order is numeric and every placement affects the next choice (0.2652ms)
+▶ PostgreSQL least-loaded assignments and Phase A handoff safety
+  ✔ batch failover is balanced, recovery returns home, stable rounds do no UPDATE (52.9043ms)
+  ✔ no UP nodes reports unavailable without deleting recovery metadata; one UP recovers all (59.8799ms)
+  ✔ concurrent explicit assignment calls share current database load (130.2452ms)
+  ✔ same-zone selection uses least load instead of only the smallest ID (45.2747ms)
+  ✔ monitor rechecks locked rows and preserves a concurrent valid custom placement (66.6924ms)
+  ✔ actual monitor transaction waits for processing COMMIT; replay after handoff stays idempotent (148.0976ms)
+✔ PostgreSQL least-loaded assignments and Phase A handoff safety (609.3522ms)
+▶ PostgreSQL authority: competing leaders, fencing, expiration, in-flight work and disconnect
+  ✔ two simultaneous LEADER claims grant exactly one process, including duplicate node IDs (21.888ms)
+  ✔ missing/forged process or epoch cannot update; committed audit carries the true authority (28.6991ms)
+  ✔ an expired lease cannot renew the old epoch; deferred COMMIT check rolls back both sensor and audit (524.1189ms)
+  ✔ takeover while old leader waits on a sensor fences the queued old transaction (69.3966ms)
+  ✔ losing local leadership after UPDATE rolls back the entire in-flight decision (40.1816ms)
+  ✔ DB connection loss aborts a queued assignment; a later epoch safely proceeds (45.1639ms)
+✔ PostgreSQL authority: competing leaders, fencing, expiration, in-flight work and disconnect (826.0411ms)
+ℹ Error: Test "takeover while old leader waits on a sensor fences the queued old transaction" at test\authority.integration.test.ts:99:13 generated asynchronous activity after the test ended. This activity created the error "Error: Connection terminated unexpectedly" and would have caused the test to fail, but instead triggered an uncaughtException event.
+✖ test\authority.integration.test.ts (1196.7948ms)
+▶ health probe validates identity and handles HTTP/body failures with a deadline
+  ✔ live node, correct identity (42.2499ms)
+  ✔ wrong node identity is never UP (32.7467ms)
+  ✔ HTTP failure (30.279ms)
+  ✔ invalid JSON (31.7732ms)
+  ✔ hanging response is aborted (132.4682ms)
+  ✔ node recovers after failed probes (29.0913ms)
+✔ health probe validates identity and handles HTTP/body failures with a deadline (308.864ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 30
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1226.653
+
+✖ failing tests:
+
+test at test\authority.integration.test.ts:1:1
+✖ test\authority.integration.test.ts (1196.7948ms)
+  'test failed'

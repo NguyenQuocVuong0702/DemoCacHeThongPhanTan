@@ -1,0 +1,38 @@
+
+> @smartedge/api@1.0.0 build
+> npm run build --workspace @smartedge/coordination && tsc
+
+
+> @smartedge/coordination@1.0.0 build
+> tsc -p tsconfig.json
+
+
+> dashboard@0.0.0 build
+> tsc -b && vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 3715 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.45 kB │ gzip:   0.29 kB
+dist/assets/index-DKYo3z70.css     10.51 kB │ gzip:   2.86 kB
+dist/assets/index-1CTV6cBa.js   1,499.31 kB │ gzip: 467.23 kB
+
+✓ built in 701ms
+
+> @smartedge/edge-node@1.0.0 build
+> npm run build --workspace @smartedge/coordination && tsc
+
+
+> @smartedge/coordination@1.0.0 build
+> tsc -p tsconfig.json
+
+
+> @smartedge/sensor-simulator@1.0.0 build
+> tsc
+
+
+> @smartedge/coordination@1.0.0 build
+> tsc -p tsconfig.json
+

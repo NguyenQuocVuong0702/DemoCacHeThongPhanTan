@@ -1,0 +1,273 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 2.51kB done
+#1 DONE 0.0s
+
+#2 [edge-1 internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.05kB done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.05kB done
+#3 DONE 0.0s
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/node:24-alpine
+#5 DONE 1.8s
+
+#6 [api internal] load .dockerignore
+#6 transferring context: 96B done
+#6 DONE 0.0s
+
+#7 [api build 1/9] FROM docker.io/library/node:24-alpine@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53
+#7 resolve docker.io/library/node:24-alpine@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53 0.0s done
+#7 DONE 0.0s
+
+#8 [api internal] load build context
+#8 transferring context: 3.98kB done
+#8 DONE 0.0s
+
+#9 [edge-1 build 2/9] WORKDIR /app
+#9 CACHED
+
+#10 [edge-1 internal] load build context
+#10 transferring context: 3.23kB done
+#10 DONE 0.0s
+
+#11 [api production  3/11] COPY package.json package-lock.json ./
+#11 DONE 0.1s
+
+#12 [edge-1 production 3/9] COPY package.json package-lock.json ./
+#12 CACHED
+
+#13 [api build 3/9] COPY package.json package-lock.json tsconfig.base.json ./
+#13 DONE 0.1s
+
+#14 [api build 4/9] COPY apps/api/package.json ./apps/api/package.json
+#14 ...
+
+#15 [edge-1 build 3/9] COPY package.json package-lock.json tsconfig.base.json ./
+#15 CACHED
+
+#16 [edge-1 production 4/9] COPY apps/edge-node/package.json ./apps/edge-node/package.json
+#16 DONE 0.1s
+
+#17 [api production  4/11] COPY apps/api/package.json ./apps/api/package.json
+#17 DONE 0.1s
+
+#18 [edge-1 build 4/9] COPY apps/edge-node/package.json ./apps/edge-node/package.json
+#18 DONE 0.1s
+
+#14 [api build 4/9] COPY apps/api/package.json ./apps/api/package.json
+#14 DONE 0.1s
+
+#19 [edge-1 production 5/9] COPY packages/coordination/package.json ./packages/coordination/package.json
+#19 DONE 0.2s
+
+#20 [api build 5/9] COPY packages/coordination/package.json ./packages/coordination/package.json
+#20 DONE 0.2s
+
+#21 [api production  5/11] COPY packages/coordination/package.json ./packages/coordination/package.json
+#21 DONE 0.2s
+
+#22 [edge-1 build 5/9] COPY packages/coordination/package.json ./packages/coordination/package.json
+#22 DONE 0.2s
+
+#23 [api build 6/9] RUN npm ci --workspace @smartedge/api --include-workspace-root
+#23 ...
+
+#24 [api production  6/11] RUN npm ci --omit=dev --workspace @smartedge/api --include-workspace-root
+#24 3.233 
+#24 3.233 added 87 packages, and audited 90 packages in 3s
+#24 3.233 
+#24 3.233 30 packages are looking for funding
+#24 3.233   run `npm fund` for details
+#24 3.238 
+#24 3.238 1 high severity vulnerability
+#24 3.238 
+#24 3.238 To address all issues, run:
+#24 3.238   npm audit fix
+#24 3.238 
+#24 3.238 Run `npm audit` for details.
+#24 3.241 npm notice
+#24 3.241 npm notice New major version of npm available! 11.19.1 -> 12.2.1
+#24 3.241 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+#24 3.241 npm notice To update run: npm install -g npm@12.2.1
+#24 3.241 npm notice
+#24 DONE 3.5s
+
+#25 [edge-1 build 6/9] RUN npm ci --workspace @smartedge/edge-node --include-workspace-root
+#25 ...
+
+#26 [edge-1 production 6/9] RUN npm ci --omit=dev --workspace @smartedge/edge-node --include-workspace-root
+#26 4.155 
+#26 4.155 added 125 packages, and audited 128 packages in 4s
+#26 4.155 
+#26 4.155 34 packages are looking for funding
+#26 4.155   run `npm fund` for details
+#26 4.160 
+#26 4.160 2 vulnerabilities (1 moderate, 1 high)
+#26 4.160 
+#26 4.160 To address all issues, run:
+#26 4.160   npm audit fix
+#26 4.160 
+#26 4.160 Run `npm audit` for details.
+#26 4.162 npm notice
+#26 4.162 npm notice New major version of npm available! 11.19.1 -> 12.2.1
+#26 4.162 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+#26 4.162 npm notice To update run: npm install -g npm@12.2.1
+#26 4.162 npm notice
+#26 DONE 4.3s
+
+#23 [api build 6/9] RUN npm ci --workspace @smartedge/api --include-workspace-root
+#23 8.268 
+#23 8.268 added 105 packages, and audited 108 packages in 8s
+#23 8.268 
+#23 8.268 30 packages are looking for funding
+#23 8.268   run `npm fund` for details
+#23 8.270 
+#23 8.270 1 high severity vulnerability
+#23 8.270 
+#23 8.270 To address all issues, run:
+#23 8.270   npm audit fix
+#23 8.270 
+#23 8.270 Run `npm audit` for details.
+#23 8.273 npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+#23 8.273 npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+#23 8.273 npm warn install-scripts
+#23 8.273 npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+#23 8.274 npm notice
+#23 8.274 npm notice New major version of npm available! 11.19.1 -> 12.2.1
+#23 8.274 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+#23 8.274 npm notice To update run: npm install -g npm@12.2.1
+#23 8.274 npm notice
+#23 DONE 8.4s
+
+#25 [edge-1 build 6/9] RUN npm ci --workspace @smartedge/edge-node --include-workspace-root
+#25 ...
+
+#27 [api build 7/9] COPY apps/api ./apps/api
+#27 DONE 0.1s
+
+#28 [api build 8/9] COPY packages/coordination ./packages/coordination
+#28 DONE 0.1s
+
+#29 [api build 9/9] RUN npm run build --workspace @smartedge/api
+#29 0.493 
+#29 0.493 > @smartedge/api@1.0.0 build
+#29 0.493 > npm run build --workspace @smartedge/coordination && tsc
+#29 0.493 
+#29 0.682 
+#29 0.682 > @smartedge/coordination@1.0.0 build
+#29 0.682 > tsc -p tsconfig.json
+#29 0.682 
+#29 DONE 1.0s
+
+#25 [edge-1 build 6/9] RUN npm ci --workspace @smartedge/edge-node --include-workspace-root
+#25 9.565 
+#25 9.565 added 140 packages, and audited 143 packages in 9s
+#25 9.565 
+#25 9.565 34 packages are looking for funding
+#25 9.565   run `npm fund` for details
+#25 9.570 
+#25 9.570 2 vulnerabilities (1 moderate, 1 high)
+#25 9.570 
+#25 9.570 To address all issues, run:
+#25 9.570   npm audit fix
+#25 9.570 
+#25 9.570 Run `npm audit` for details.
+#25 9.572 npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+#25 9.572 npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+#25 9.572 npm warn install-scripts
+#25 9.572 npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+#25 9.575 npm notice
+#25 9.575 npm notice New major version of npm available! 11.19.1 -> 12.2.1
+#25 9.575 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+#25 9.575 npm notice To update run: npm install -g npm@12.2.1
+#25 9.575 npm notice
+#25 DONE 9.8s
+
+#30 [api production  7/11] COPY --from=build /app/apps/api/dist ./apps/api/dist
+#30 DONE 0.1s
+
+#31 [edge-1 build 7/9] COPY apps/edge-node ./apps/edge-node
+#31 DONE 0.1s
+
+#32 [api production  8/11] COPY --from=build /app/packages/coordination/dist ./packages/coordination/dist
+#32 DONE 0.1s
+
+#33 [edge-1 build 8/9] COPY packages/coordination ./packages/coordination
+#33 DONE 0.1s
+
+#34 [edge-1 build 9/9] RUN npm run build --workspace @smartedge/edge-node
+#34 ...
+
+#35 [api production  9/11] COPY apps/api/sql ./apps/api/sql
+#35 DONE 0.1s
+
+#36 [api production 10/11] COPY config/demo-sensors.json ./config/demo-sensors.json
+#36 DONE 0.1s
+
+#37 [api production 11/11] WORKDIR /app/apps/api
+#37 DONE 0.1s
+
+#38 [api] exporting to image
+#38 exporting layers
+#38 exporting layers 0.7s done
+#38 exporting manifest sha256:8fd1001e67159dcaf54a09f42ff0e0c50cce9c805ddf6fa66553f696f964319a 0.0s done
+#38 exporting config sha256:d9ccef036acfe6429cc839e09ea28dc8ca24217d500e80608ded0fb6756ef355 0.0s done
+#38 exporting attestation manifest sha256:a3f1768bcc01a41b3e357b31c86a3fa6674ebd5d83aab73199c8ab469b598b02 0.0s done
+#38 exporting manifest list sha256:2485c4972cba3871189a0fd7b1d933720ded222db15910c92707112f151f351d
+#38 ...
+
+#34 [edge-1 build 9/9] RUN npm run build --workspace @smartedge/edge-node
+#34 0.474 
+#34 0.474 > @smartedge/edge-node@1.0.0 build
+#34 0.474 > npm run build --workspace @smartedge/coordination && tsc
+#34 0.474 
+#34 0.678 
+#34 0.678 > @smartedge/coordination@1.0.0 build
+#34 0.678 > tsc -p tsconfig.json
+#34 0.678 
+#34 DONE 1.0s
+
+#39 [edge-1 production 7/9] COPY --from=build /app/apps/edge-node/dist ./apps/edge-node/dist
+#39 DONE 0.1s
+
+#38 [api] exporting to image
+#38 exporting manifest list sha256:2485c4972cba3871189a0fd7b1d933720ded222db15910c92707112f151f351d 0.0s done
+#38 naming to docker.io/library/smartedge-api:latest done
+#38 unpacking to docker.io/library/smartedge-api:latest
+#38 ...
+
+#40 [edge-1 production 8/9] COPY --from=build /app/packages/coordination/dist ./packages/coordination/dist
+#40 DONE 0.1s
+
+#41 [edge-1 production 9/9] WORKDIR /app/apps/edge-node
+#41 DONE 0.1s
+
+#42 [edge-1] exporting to image
+#42 ...
+
+#38 [api] exporting to image
+#38 unpacking to docker.io/library/smartedge-api:latest 0.8s done
+#38 DONE 1.7s
+
+#43 [api] resolving provenance for metadata file
+#43 DONE 0.0s
+
+#42 [edge-1] exporting to image
+#42 exporting layers 0.9s done
+#42 exporting manifest sha256:8197fe733387a4ac7c75c3794ae444fec35144af03ebc48af4f599c487dafa2a 0.0s done
+#42 exporting config sha256:b13399c9709a0287ca962308340155569da1f12e07ad1be2dd781e8aed65851c 0.0s done
+#42 exporting attestation manifest sha256:9b1aa41b4878aa0faa0aae7fcd937bb4120fb92bead51a61412729c125101b71 0.0s done
+#42 exporting manifest list sha256:b9469a11dade111eb4e5f828b9941b7646b1dbd56ca8858a0dc0f38f6fb32c77 0.0s done
+#42 naming to docker.io/library/smartedge-edge-node:latest
+#42 naming to docker.io/library/smartedge-edge-node:latest done
+#42 unpacking to docker.io/library/smartedge-edge-node:latest
+#42 unpacking to docker.io/library/smartedge-edge-node:latest 1.0s done
+#42 DONE 2.1s
+
+#44 [edge-1] resolving provenance for metadata file
+#44 DONE 0.0s

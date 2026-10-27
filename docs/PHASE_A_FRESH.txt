@@ -1,0 +1,87 @@
+Docker Compose version v5.4.0
+29.7.2
+migrate-1  | [Migration] Apply 001_initial_schema.sql
+migrate-1  | [Migration] Apply 002_add_location_fields.sql
+migrate-1  | [Migration] Apply 003_seed_edge_locations.sql
+migrate-1  | [Migration] Apply 004_distributed_telemetry.sql
+migrate-1  | Database migration completed successfully
+demo-bootstrap-1  | [Demo] sensor-1: zone=hanoi edge=1 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-2: zone=hanoi edge=1 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-3: zone=danang edge=2 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-4: zone=danang edge=2 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-5: zone=hcm edge=3 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-6: zone=hcm edge=3 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] Bootstrap completed: 6 configured sensors have real telemetry.
+Docker Compose version v5.4.0
+29.7.2
+[PASS] API /health
+[PASS] API /health/db
+[PASS] edge-1 /health
+[PASS] edge-2 /health
+[PASS] edge-3 /health
+[PASS] Stable cluster: 3 UP, one leader edge-3, consistent leaderId
+[FAIL] Six demo sensors have real readings, zones and valid assignments: Missing or duplicate sensor-1 sensor-2 sensor-3 sensor-4 sensor-5 sensor-6
+[FAIL] All six telemetry streams continue to grow: Timeout waiting for new samples from all demo sensors after 180s. Last error: Not ready yet
+[PASS] Current assigned nodes actually process the six sensors
+[PASS] Receipts, readings and alerts have consistent unique provenance
+[PASS] Dashboard HTTP
+Checks: 9 PASS, 2 FAIL
+[FAIL] Demo smoke checks failed.
+NAME                                        IMAGE                               COMMAND                  SERVICE            CREATED         STATUS                     PORTS
+smartedge-phase-a-test-api-1                smartedge-api:latest                "docker-entrypoint.s…"   api                3 minutes ago   Up 3 minutes (healthy)     0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+smartedge-phase-a-test-dashboard-1          smartedge-dashboard:latest          "/docker-entrypoint.…"   dashboard          3 minutes ago   Up 3 minutes (healthy)     0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+smartedge-phase-a-test-demo-bootstrap-1     smartedge-api:latest                "docker-entrypoint.s…"   demo-bootstrap     3 minutes ago   Exited (0) 3 minutes ago   
+smartedge-phase-a-test-edge-1-1             smartedge-edge-node:latest          "docker-entrypoint.s…"   edge-1             3 minutes ago   Up 3 minutes (healthy)     0.0.0.0:5001->5001/tcp, [::]:5001->5001/tcp
+smartedge-phase-a-test-edge-2-1             smartedge-edge-node:latest          "docker-entrypoint.s…"   edge-2             3 minutes ago   Up 3 minutes (healthy)     0.0.0.0:5002->5002/tcp, [::]:5002->5002/tcp
+smartedge-phase-a-test-edge-3-1             smartedge-edge-node:latest          "docker-entrypoint.s…"   edge-3             3 minutes ago   Up 3 minutes (healthy)     0.0.0.0:5003->5003/tcp, [::]:5003->5003/tcp
+smartedge-phase-a-test-migrate-1            smartedge-api:latest                "docker-entrypoint.s…"   migrate            3 minutes ago   Exited (0) 3 minutes ago   
+smartedge-phase-a-test-mqtt-1               eclipse-mosquitto:2                 "/docker-entrypoint.…"   mqtt               3 minutes ago   Up 3 minutes (healthy)     0.0.0.0:1883->1883/tcp, [::]:1883->1883/tcp
+smartedge-phase-a-test-postgres-1           postgres:17                         "docker-entrypoint.s…"   postgres           3 minutes ago   Up 3 minutes (healthy)     0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+smartedge-phase-a-test-sensor-simulator-1   smartedge-sensor-simulator:latest   "docker-entrypoint.s…"   sensor-simulator   3 minutes ago   Up 3 minutes               
+postgres-1  | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+postgres-1  | waiting for server to start....2026-10-27 09:02:53.835 UTC [48] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+postgres-1  | 2026-10-27 09:02:53.838 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres-1  | 2026-10-27 09:02:53.850 UTC [51] LOG:  database system was shut down at 2026-10-27 09:02:53 UTC
+postgres-1  | 2026-10-27 09:02:53.857 UTC [48] LOG:  database system is ready to accept connections
+postgres-1  |  done
+postgres-1  | server started
+postgres-1  | CREATE DATABASE
+postgres-1  | 
+postgres-1  | 
+postgres-1  | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+postgres-1  | 
+postgres-1  | waiting for server to shut down...2026-10-27 09:02:54.024 UTC [48] LOG:  received fast shutdown request
+postgres-1  | .2026-10-27 09:02:54.027 UTC [48] LOG:  aborting any active transactions
+postgres-1  | 2026-10-27 09:02:54.029 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+postgres-1  | 2026-10-27 09:02:54.029 UTC [49] LOG:  shutting down
+postgres-1  | 2026-10-27 09:02:54.032 UTC [49] LOG:  checkpoint starting: shutdown immediate
+postgres-1  | 2026-10-27 09:02:54.156 UTC [49] LOG:  checkpoint complete: wrote 925 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.028 s, sync=0.089 s, total=0.127 s; sync files=301, longest=0.003 s, average=0.001 s; distance=4256 kB, estimate=4256 kB; lsn=0/19179B0, redo lsn=0/19179B0
+postgres-1  | 2026-10-27 09:02:54.168 UTC [48] LOG:  database system is shut down
+postgres-1  |  done
+postgres-1  | server stopped
+postgres-1  | 
+postgres-1  | PostgreSQL init process complete; ready for start up.
+postgres-1  | 
+postgres-1  | 2026-10-27 09:02:54.258 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+postgres-1  | 2026-10-27 09:02:54.258 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+postgres-1  | 2026-10-27 09:02:54.258 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+postgres-1  | 2026-10-27 09:02:54.265 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres-1  | 2026-10-27 09:02:54.274 UTC [64] LOG:  database system was shut down at 2026-10-27 09:02:54 UTC
+postgres-1  | 2026-10-27 09:02:54.284 UTC [1] LOG:  database system is ready to accept connections
+migrate-1   | [Migration] Apply 001_initial_schema.sql
+migrate-1   | [Migration] Apply 002_add_location_fields.sql
+migrate-1   | [Migration] Apply 003_seed_edge_locations.sql
+migrate-1   | [Migration] Apply 004_distributed_telemetry.sql
+migrate-1   | Database migration completed successfully
+api-1       | 
+api-1       | > @smartedge/api@1.0.0 start
+api-1       | > node dist/index.js
+api-1       | 
+api-1       | SmartEdge API is running on port 4000
+demo-bootstrap-1  | [Demo] sensor-1: zone=hanoi edge=1 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-2: zone=hanoi edge=1 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-3: zone=danang edge=2 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-4: zone=danang edge=2 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-5: zone=hcm edge=3 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] sensor-6: zone=hcm edge=3 strategy=SAME_ZONE
+demo-bootstrap-1  | [Demo] Bootstrap completed: 6 configured sensors have real telemetry.

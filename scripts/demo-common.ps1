@@ -59,7 +59,10 @@ function Test-DemoCluster {
         if ($node.Count -ne 1) { return $false }
     }
     $leader = @($nodes | Where-Object { $_.id -eq '3' -and $_.role -eq 'LEADER' })
-    ($leader.Count -eq 1 -and $cluster.summary.leaderId -eq '3')
+    if($leader.Count -ne 1 -or $cluster.summary.leaderId -ne '3'){return $false}
+    if((Get-DemoSql "SELECT COUNT(*) FROM assignment_authority WHERE singleton=true AND holder_node_id='3' AND lease_until>clock_timestamp()") -ne '1'){return $false}
+    $authority=Invoke-RestMethod -UseBasicParsing -Uri 'http://127.0.0.1:5003/assignments/authority' -TimeoutSec 5
+    ($authority.lease.valid -and $authority.lease.holderNodeId -eq '3' -and $null -ne $authority.localEpoch -and $authority.localEpoch -eq $authority.lease.epoch)
 }
 
 function Wait-DemoJob {

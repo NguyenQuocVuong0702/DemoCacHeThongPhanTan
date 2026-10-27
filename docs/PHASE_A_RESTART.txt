@@ -1,0 +1,47 @@
+Docker Compose version v5.4.0
+29.7.2
+migrate-1  | [Migration] Skip 001_initial_schema.sql (already applied)
+migrate-1  | [Migration] Skip 002_add_location_fields.sql (already applied)
+migrate-1  | [Migration] Skip 003_seed_edge_locations.sql (already applied)
+migrate-1  | [Migration] Skip 004_distributed_telemetry.sql (already applied)
+migrate-1  | Database migration completed successfully
+demo-bootstrap-1  | [Demo] sensor-1: initialization already complete; preserve metadata.
+demo-bootstrap-1  | [Demo] sensor-2: initialization already complete; preserve metadata.
+demo-bootstrap-1  | [Demo] sensor-3: initialization already complete; preserve metadata.
+demo-bootstrap-1  | [Demo] sensor-4: initialization already complete; preserve metadata.
+demo-bootstrap-1  | [Demo] sensor-5: initialization already complete; preserve metadata.
+demo-bootstrap-1  | [Demo] sensor-6: initialization already complete; preserve metadata.
+demo-bootstrap-1  | [Demo] Bootstrap completed: 6 configured sensors have real telemetry.
+Docker Compose version v5.4.0
+29.7.2
+[PASS] API /health
+[PASS] API /health/db
+[PASS] edge-1 /health
+[PASS] edge-2 /health
+[PASS] edge-3 /health
+[PASS] Stable cluster: 3 UP, one leader edge-3, consistent leaderId
+       sensor-1: zone=danang, edge=2, strategy=SAME_ZONE
+       sensor-2: zone=hanoi, edge=1, strategy=SAME_ZONE
+       sensor-3: zone=danang, edge=2, strategy=SAME_ZONE
+       sensor-4: zone=danang, edge=2, strategy=SAME_ZONE
+       sensor-5: zone=hcm, edge=3, strategy=SAME_ZONE
+       sensor-6: zone=hcm, edge=3, strategy=SAME_ZONE
+[PASS] Six demo sensors have real readings, zones and valid assignments
+[PASS] All six telemetry streams continue to grow
+[PASS] Current assigned nodes actually process the six sensors
+[PASS] Receipts, readings and alerts have consistent unique provenance
+[PASS] Dashboard HTTP
+Checks: 11 PASS, 0 FAIL
+NAME                                        IMAGE                               COMMAND                  SERVICE            CREATED          STATUS                      PORTS
+smartedge-phase-a-test-api-1                smartedge-api:latest                "docker-entrypoint.s…"   api                33 seconds ago   Up 20 seconds (healthy)     0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+smartedge-phase-a-test-dashboard-1          smartedge-dashboard:latest          "/docker-entrypoint.…"   dashboard          33 seconds ago   Up 14 seconds (healthy)     0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+smartedge-phase-a-test-demo-bootstrap-1     smartedge-api:latest                "docker-entrypoint.s…"   demo-bootstrap     33 seconds ago   Exited (0) 9 seconds ago    
+smartedge-phase-a-test-edge-1-1             smartedge-edge-node:latest          "docker-entrypoint.s…"   edge-1             33 seconds ago   Up 25 seconds (healthy)     0.0.0.0:5001->5001/tcp, [::]:5001->5001/tcp
+smartedge-phase-a-test-edge-2-1             smartedge-edge-node:latest          "docker-entrypoint.s…"   edge-2             33 seconds ago   Up 25 seconds (healthy)     0.0.0.0:5002->5002/tcp, [::]:5002->5002/tcp
+smartedge-phase-a-test-edge-3-1             smartedge-edge-node:latest          "docker-entrypoint.s…"   edge-3             33 seconds ago   Up 25 seconds (healthy)     0.0.0.0:5003->5003/tcp, [::]:5003->5003/tcp
+smartedge-phase-a-test-migrate-1            smartedge-api:latest                "docker-entrypoint.s…"   migrate            33 seconds ago   Exited (0) 26 seconds ago   
+smartedge-phase-a-test-mqtt-1               eclipse-mosquitto:2                 "/docker-entrypoint.…"   mqtt               33 seconds ago   Up 32 seconds (healthy)     0.0.0.0:1883->1883/tcp, [::]:1883->1883/tcp
+smartedge-phase-a-test-postgres-1           postgres:17                         "docker-entrypoint.s…"   postgres           33 seconds ago   Up 32 seconds (healthy)     0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+smartedge-phase-a-test-sensor-simulator-1   smartedge-sensor-simulator:latest   "docker-entrypoint.s…"   sensor-simulator   33 seconds ago   Up 20 seconds               
+Dashboard: http://localhost:8080
+API:       http://localhost:4000

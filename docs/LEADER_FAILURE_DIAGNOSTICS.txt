@@ -1,0 +1,180 @@
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=b638b250-0180-4178-ba30-2890436fb375 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=a63b3e63-48b6-4726-bc5c-e1d1fd85b293 alerts=0
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=bda2670e-b64e-4777-bd09-e98776c2cddf alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=b0d74070-86c8-409c-afd6-088219cbdf0b alerts=0
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=7055308b-c159-4c91-a44a-681fcb9a8871 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=9886c8bd-2c89-4550-834f-d4c793f1243e alerts=0
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=6e0b8110-7228-4389-bd88-e7fc73287954 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=cd748659-c933-44fd-9ea6-c7b4b10e42aa alerts=0
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=dc2c02e6-10d1-48f5-b0c7-6dec5b3bc9a3 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=f4a39ca2-92c7-4443-9308-25ab10ef902b alerts=0
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=43727646-fa22-4bdc-a2d0-a5489a55999c alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=89b3dd26-9270-4cd3-a0b6-e9edd858836c alerts=0
+edge-2-1  | [Coordination][2] lease unavailable; assignment paused: Error: Connection terminated due to connection timeout
+edge-2-1  |     at /app/node_modules/pg-pool/index.js:45:11
+edge-2-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+edge-2-1  |     at async acquireOrRenewLease (file:///app/packages/coordination/dist/lease.js:5:20)
+edge-2-1  |     at async leaseTick (file:///app/apps/edge-node/dist/assignment-coordinator.js:67:22) {
+edge-2-1  |   [cause]: Error: Connection terminated unexpectedly
+edge-2-1  |       at Connection.<anonymous> (/app/node_modules/pg/lib/client.js:204:73)
+edge-2-1  |       at Connection.wrapper (node:events:639:12)
+edge-2-1  |       at Connection.emit (node:events:514:28)
+edge-2-1  |       at Socket.<anonymous> (/app/node_modules/pg/lib/connection.js:64:12)
+edge-2-1  |       at Socket.emit (node:events:514:28)
+edge-2-1  |       at TCP.<anonymous> (node:net:362:12)
+edge-2-1  | }
+edge-2-1  | [Coordination][ACQUIRE] node=2 instance=f3d604bb-c766-4e8e-ae73-7a96eb6d9a98 epoch=6
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=a5af30d9-10bd-4ad5-a9eb-99b9dbd4e05e alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=1478bd8b-97c7-4c8c-bdaf-58af34922df2 alerts=0
+edge-2-1  | [Coordination][RELEASE] node=2 epoch=6
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=fe5b4ee9-4ea7-4a4e-b69f-b05b45b9d4c4 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=5c98ecbf-8fcf-43d9-bcd5-6099ecedd42b alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=b20d8e7f-caa4-4c1f-a555-7213bf53731e alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=4c86e15a-7eb2-4652-b2fa-e3e485b37eb8 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=f3933a8b-6160-4810-bf23-502741223a9c alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=bf8f7b35-8762-437e-8aaf-b709db3038fd alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=44097a75-e841-4f3f-982e-a9d769d7379e alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=6b8c6105-57e7-4fc4-8b52-da09ea3034c0 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=c65030fa-0bd0-4865-b215-787c7f880480 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=b4db576b-ff83-4b92-b394-a4a7f5f5aa38 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=a692cdfe-4f39-4a20-891a-80c9ba40dbf3 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=b8e8cb4d-73e9-4946-8454-d152694186a5 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=c38a9bd1-0d43-4024-b0c6-65b22eb25610 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=9e4178ff-14b4-4fda-85c4-07c0e33b4acd alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=80a97584-d1e9-4524-8c8a-4be8ce3dc1e0 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=5332a9ec-2ddb-4c6b-b7a9-5617922ac0f3 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=010d4253-dd9b-4bf2-940a-ec139363cd2e alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=f7bf3c42-e980-4fdd-b32a-a271336ce3ec alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=1d3c2f74-90e4-4c92-85b1-0ebccf78231f alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=aa2c6586-ee7b-4d14-9b18-a8de6ce3b9cb alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=803903a5-b9fc-4a80-aa3a-1787ca7cfa72 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=b21011cd-bba1-4b24-b0c9-282a5e0e0a51 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=2ea9ecab-789e-49a2-84a4-6a20d832fe04 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=f32e9876-45ed-4088-9333-04e7751038ce alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=1089dc8e-8566-4e9f-b07b-48b179207683 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=2c0489f3-212b-42d9-826c-d908ab6d8995 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=511134d4-7196-49b4-a87a-667b304e0726 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=b4541be8-7fa4-4305-81f5-09c8a368cc08 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=77803a3e-09cb-44ba-92b9-32a086df7616 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=a0e656ba-65e3-4f24-b601-16cdc0f6fd2a alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=8ba45ada-d61b-4dc3-8143-d8672b93d50a alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=ac304480-7140-4e66-8404-de01bb8ee8e5 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=806871ff-2afc-4969-bd37-6e7111b4313f alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=387d1015-a356-42bf-9455-80906da48ece alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=3 message=659e1fc1-ec3e-49b2-acfc-bd5a98258961 alerts=0
+edge-2-1  | [Telemetry][Node 2] committed sensor=4 message=43bdd7b8-fc4a-4bfc-a7f4-abc5de69a648 alerts=0

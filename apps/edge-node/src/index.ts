@@ -18,10 +18,29 @@ import {
   updatePeerStatus,
 } from "./gossip.js";
 import { startMqttSubscriber } from "./mqtt.js";
+import { assignAsLeader, getAssignmentAuthority, startAssignmentCoordination } from "./assignment-coordinator.js";
+import { AuthorityLostError } from "@smartedge/coordination";
 
 const app = express();
 
 app.use(express.json());
+
+app.get("/assignments/authority", async (_request, response) => {
+  response.json(await getAssignmentAuthority());
+});
+
+app.post("/assignments/:sensorId", async (request, response) => {
+  const sensorId = String(request.params.sensorId);
+  const onlyIfUnassigned = request.body?.onlyIfUnassigned === true;
+  try {
+    const result = await assignAsLeader(sensorId, onlyIfUnassigned, request.get("x-assignment-epoch"));
+    response.status(result.ok ? 200 : result.reason === "SENSOR_NOT_FOUND" ? 404 : 409).json(result);
+  } catch (error) {
+    const fenced = error instanceof AuthorityLostError || (error as { code?: string }).code === "42501";
+    response.status(fenced ? 409 : 503).json({ ok: false, reason: "NO_ASSIGNMENT_LEADER",
+      message: fenced ? "Node has no valid assignment authority" : "Assignment temporarily unavailable" });
+  }
+});
 
 app.get("/health", (_request, response) => {
   const electionState = getElectionState();
@@ -125,6 +144,7 @@ app.get("/election/status", (_request, response) => {
 app.listen(port, () => {
   console.log(`Edge node ${nodeId} is running on port ${port}`);
   startMqttSubscriber();
+  startAssignmentCoordination();
   startHeartbeatMonitoring(peers, (peer) => {
     if (peer.status === "UP" || peer.status === "DOWN") {
       updatePeerStatus(peer.id, peer.status);

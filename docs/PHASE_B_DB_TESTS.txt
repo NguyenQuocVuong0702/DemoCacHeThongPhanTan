@@ -1,0 +1,37 @@
+
+> @smartedge/api@1.0.0 test
+> tsx --test test/*.test.ts
+
+✔ normal cluster does not move any healthy same-zone sensor (8.0093ms)
+✔ same-zone priority beats a less-loaded remote node; ties use numeric ID (0.2861ms)
+✔ fallback chooses least assigned node, then smallest numeric ID (0.1624ms)
+✔ edge-3 down splits sensors 5/6 using updated projected loads (0.3627ms)
+✔ recovery returns displaced sensors home once, without oscillation (0.4029ms)
+✔ one UP node receives all failed assignments; DOWN metadata is never a candidate (0.27ms)
+✔ no UP nodes preserves the last assignment and reports no available processor (0.1627ms)
+✔ custom healthy fallback, same-zone owner, and user-cleared assignments stay intact (0.1242ms)
+✔ sensor ID order is numeric and every placement affects the next choice (0.1884ms)
+▶ PostgreSQL least-loaded assignments and Phase A handoff safety
+  ✔ batch failover is balanced, recovery returns home, stable rounds do no UPDATE (43.2604ms)
+  ✔ no UP nodes reports unavailable without deleting recovery metadata; one UP recovers all (45.8925ms)
+  ✔ concurrent explicit assignment calls share current database load (80.3818ms)
+  ✔ same-zone selection uses least load instead of only the smallest ID (32.2227ms)
+  ✔ monitor rechecks locked rows and preserves a concurrent valid custom placement (50.2901ms)
+  ✔ actual monitor transaction waits for processing COMMIT; replay after handoff stays idempotent (123.5293ms)
+✔ PostgreSQL least-loaded assignments and Phase A handoff safety (483.156ms)
+▶ health probe validates identity and handles HTTP/body failures with a deadline
+  ✔ live node, correct identity (35.5249ms)
+  ✔ wrong node identity is never UP (27.3968ms)
+  ✔ HTTP failure (27.5723ms)
+  ✔ invalid JSON (29.6006ms)
+  ✔ hanging response is aborted (126.6805ms)
+  ✔ node recovers after failed probes (28.1266ms)
+✔ health probe validates identity and handles HTTP/body failures with a deadline (281.5784ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 794.2499

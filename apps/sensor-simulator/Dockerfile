@@ -23,6 +23,7 @@ COPY apps/sensor-simulator/package.json ./apps/sensor-simulator/package.json
 RUN npm ci --omit=dev --workspace @smartedge/sensor-simulator --include-workspace-root
 
 COPY --from=build /app/apps/sensor-simulator/dist ./apps/sensor-simulator/dist
+COPY config/demo-sensors.json ./config/demo-sensors.json
 
 WORKDIR /app/apps/sensor-simulator
 
